@@ -1,0 +1,14 @@
+<window>
+  <style name="default">
+    <normal bg_color="#f0f0f0"/>
+  </style>
+</window>
+
+<triangle_button>
+  <style name="default" >
+    <normal bg_color="#ff0000" />
+    <pressed bg_color="#ffff00"/>
+    <over bg_color="#ff0000" />
+  </style>
+</triangle_button>
+

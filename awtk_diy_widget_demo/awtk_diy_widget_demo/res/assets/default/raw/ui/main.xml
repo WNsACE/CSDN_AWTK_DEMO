@@ -1,0 +1,6 @@
+<window x="0" y="0" w="100%" h="100%" >
+  <view x="c" y="m" w="50%" h="50%" >
+    <triangle_button x="0" y="0" w="50%" h="100%" is_left="true" />
+    <triangle_button x="50%" y="0" w="50%" h="100%" is_left="false" />
+  </view>
+</window>
