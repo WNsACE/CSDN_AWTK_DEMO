@@ -7,7 +7,9 @@ BEGIN_C_DECLS
 
 typedef struct _triangle_button_t {
   widget_t widget;
+  /* 标记三角形向左还是向右 */
   bool_t is_left;
+  /* 标记按钮是否按下 */
   bool_t pressed;
 } triangle_button_t;
 
