@@ -94,20 +94,32 @@ static ret_t triangle_button_set_prop(widget_t* widget, const char* name, const 
 
 static ret_t triangle_button_on_event(widget_t* widget, event_t* e)
 {
-	uint16_t type = e->type;
+	uint16_t type = e->type; 
+	triangle_button_t* triangle_button = TRANGLE_BUTTON(widget);
 	return_value_if_fail(widget != NULL, RET_BAD_PARAMS);
 
 	/* 如果鼠标点击在控件上面，会设置其风格状态，让其改变 bg_color 的颜色 */
 	switch (type)
 	{
 	case EVT_POINTER_DOWN: {
+		triangle_button->pressed = TRUE;
 		widget_set_state(widget, WIDGET_STATE_PRESSED);
 		widget_grab(widget->parent, widget);
 		break;
+	}	
+	case EVT_POINTER_UP: {
+		/* 发送点击事件 */
+		pointer_event_t evt = *(pointer_event_t*)e;
+		if (triangle_button->pressed && widget_is_point_in(widget, evt.x, evt.y, FALSE))
+		{
+			evt.e = event_init(EVT_CLICK, widget);
+			widget_dispatch(widget, (event_t*)&evt);
+		}
 	}
 	case EVT_POINTER_DOWN_ABORT:
-	case EVT_POINTER_UP:
 	case EVT_POINTER_LEAVE:
+		triangle_button->pressed = FALSE;
+		widget_ungrab(widget->parent, widget);
 		widget_set_state(widget, WIDGET_STATE_NORMAL);
 		break;
 	default:
@@ -134,7 +146,12 @@ const widget_vtable_t g_triangle_button_vtable = {
 
 widget_t* triangle_button_create(widget_t* parent, xy_t x, xy_t y, wh_t w, wh_t h)
 {
-	return widget_create(parent, &g_triangle_button_vtable, x, y, w, h);
+	widget_t* widget = widget_create(parent, &g_triangle_button_vtable, x, y, w, h);
+	triangle_button_t* triangle_button = TRANGLE_BUTTON(widget);
+
+	triangle_button->pressed = FALSE;
+
+	return widget;
 }
 
 widget_t* triangle_button_cast(widget_t* widget)

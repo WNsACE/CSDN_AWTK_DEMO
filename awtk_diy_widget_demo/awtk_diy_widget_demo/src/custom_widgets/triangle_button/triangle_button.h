@@ -8,6 +8,7 @@ BEGIN_C_DECLS
 typedef struct _triangle_button_t {
   widget_t widget;
   bool_t is_left;
+  bool_t pressed;
 } triangle_button_t;
 
 /**

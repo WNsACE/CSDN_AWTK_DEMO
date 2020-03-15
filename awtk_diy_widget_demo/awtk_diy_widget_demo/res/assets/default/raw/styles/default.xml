@@ -12,3 +12,14 @@
   </style>
 </triangle_button>
 
+<label>
+  <style name="default">
+    <normal text_color="black" />
+  </style>
+</label>
+
+<dialog>
+  <style name="default">
+    <normal border_color="#606060" />
+  </style>
+</dialog>
